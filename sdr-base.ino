@@ -189,14 +189,15 @@ void commLoop() {
 //read Band
 
 int readBand() {
+  // read LSB last
   int itempBand = 0;
-  if (digitalRead(iInpB1))
+  if (digitalRead(iInpB3))
     itempBand++;
   itempBand << 1;
   if (digitalRead(iInpB2))
     itempBand++;
   itempBand << 1;
-  if (digitalRead(iInpB3))
+  if (digitalRead(iInpB1))
     itempBand++;
   itempBand << 1;
   return itempBand;
@@ -205,9 +206,32 @@ int readBand() {
 // set Band
 void setBand(int iBand) {
   switch (iBand) {
-    case 0:   digitalWrite(iRelPin1, false);
-      digitalWrite(iRelPin2, false);
-      digitalWrite(iRelPin3, false);
+    // 8 options possible
+    case 0:   //9cm
+      digitalWrite(iRelPin1, true); //Rel switches to 1
+      digitalWrite(iRelPin2, true); //Rel switches to 1
+      digitalWrite(iRelPin3, true); //Rel switches to 1
+      digitalWrite(iRelPin4, true); //Rel switches to 1
+      digitalWrite(iRelPin5, true); //not used
+      break;
+    case 1:   //6cm
+      digitalWrite(iRelPin1, false); //Rel switches to 2 
+      digitalWrite(iRelPin2, false); //Rel switches to 2
+      //digitalWrite(iRelPin3, false);
+      //digitalWrite(iRelPin4, false);
+      //digitalWrite(iRelPin5, false);
+      break;
+    case 2:   //2m-1
+      digitalWrite(iRelPin1, true); //Rel switches to 1 
+      digitalWrite(iRelPin2, true); //Rel switches to 1
+      digitalWrite(iRelPin3, false); //Rel switches to
+      digitalWrite(iRelPin4, false);
+      digitalWrite(iRelPin5, true);
+      break;
+    case 3:   //2m-2
+      digitalWrite(iRelPin1, true); //Rel switches to 1 
+      digitalWrite(iRelPin2, true); //Rel switches to 1
+      digitalWrite(iRelPin3, false); //Rel switches to
       digitalWrite(iRelPin4, false);
       digitalWrite(iRelPin5, false);
       break;
