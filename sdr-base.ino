@@ -46,7 +46,8 @@ bool bIna219A = false;
 float ub = 0;       //ina219_A
 char  sub[5];
 float ib = 0;       //ina219_A
-char  sib[8];
+char  sib[10];
+//float uShunt =0;
 
 // 4. Init R1-R4
 int iRelPin1 = 2;
@@ -82,8 +83,6 @@ PubSubClient client;
 
 //char cEthFail_1[] = "Error: renewed fail";
 
-#define P(x) (__FlashStringHelper*)(x)    // F-Makro für Variablen
-const char cPMQTTtxrx[] PROGMEM = {"DD0VS/SDR-base/RXTX"};
 
 char cMQTTstat[] = "DD0VS/SDR-base/stat";
 char cMQTTtxrx[] = "DD0VS/SDR-base/RXTX";
@@ -128,9 +127,12 @@ void commLoop() {
         iCommLoopStat++;
         if (bIna219A) {
           ub = ina219_A.getBusVoltage_V();
+          //uShunt = ina219_A.getShuntVoltage_mV();
           // 2. println U
           Serial.print(F("U: "));
           Serial.println(ub);
+          //Serial.print(F("Ushunt: "));
+          //Serial.println(uShunt);
         }
         else {
           //delay(1000);
@@ -192,15 +194,18 @@ void commLoop() {
 int readBand() {
   // read LSB last
   int itempBand = 0;
-  if (digitalRead(iInpB3))
+  if (digitalRead(iInpB3)) {
     itempBand++;
-  itempBand << 1;
-  if (digitalRead(iInpB2))
+  }
+  itempBand = itempBand << 1;
+  if (digitalRead(iInpB2)) {
     itempBand++;
-  itempBand << 1;
-  if (digitalRead(iInpB1))
+  }
+  itempBand = itempBand << 1;
+  if (digitalRead(iInpB1)) {
     itempBand++;
-  itempBand << 1;
+  }
+  //itempBand = itempBand << 1;
   return itempBand;
 }
 
@@ -341,7 +346,7 @@ void setup() {
 
   // 4. init R1-R4
   pinMode(iRelPin1, OUTPUT);
-  pinMode(iRelPin1, OUTPUT);
+  pinMode(iRelPin2, OUTPUT);
   pinMode(iRelPin3, OUTPUT);
   pinMode(iRelPin4, OUTPUT);
 
