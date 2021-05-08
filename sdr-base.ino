@@ -194,23 +194,19 @@ void commLoop() {
 int readBand() {
   // read LSB last
   int itempBand = 0;
-  if (digitalRead(iInpB3)) {
+  if (digitalRead(iInpB3)) 
     itempBand++;
-  }
   itempBand = itempBand << 1;
-  if (digitalRead(iInpB2)) {
+  if (digitalRead(iInpB2)) 
     itempBand++;
-  }
   itempBand = itempBand << 1;
-  if (digitalRead(iInpB1)) {
+  if (digitalRead(iInpB1)) 
     itempBand++;
-  }
-  //itempBand = itempBand << 1;
   return itempBand;
 }
 
 // set Band
-void setBand(int iBand) {
+void setBand(int iBand) { 
   switch (iBand) {
     // 8 options possible
     case 0:   //9cm
