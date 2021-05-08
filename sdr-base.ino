@@ -1,4 +1,5 @@
 //version 0.1 01.05.2021
+//version 1.0 08.05.2021
 //B200mini sdr base
 // using F()-Makro https://www.arduino.cc/reference/de/language/variables/utilities/progmem/
 // https://www.arduinoforum.de/arduino-Thread-F-Makro-f%C3%BCr-Variablen-ein-kleiner-Tipp
